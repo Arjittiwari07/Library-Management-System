@@ -4,9 +4,21 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public class Library {
-    ArrayList<Book> books = new ArrayList<>();
-    ArrayList<Student> students = new ArrayList<>();
-    int StudentCount = 0;
+    private ArrayList<Book> books = new ArrayList<>();
+    private ArrayList<Student> students = new ArrayList<>();
+    private int StudentCount = 0;
+    ArrayList<Book> getBooks(){
+        return books;
+    }
+    ArrayList<Student> getStudents(){
+        return students;
+    }
+    void setStudentCount(int StudentCount){
+        this.StudentCount = StudentCount;
+    }
+    int getStudentCount(){
+        return StudentCount;
+    }
     void addBook(Book book){
         if(books.contains(book)){
             System.out.println("Book is Already in Library.");
@@ -17,7 +29,7 @@ public class Library {
     void deleteBook(int Bookid){
         boolean bookFound = false;
         for(Book book : books){
-            if(book.BookId == Bookid){
+            if(book.getBookId() == Bookid){
                 books.remove(book);
                 bookFound= true;
                 break;
@@ -29,8 +41,8 @@ public class Library {
     void updateBookTitle(int Bookid, String newTitle){
         boolean bookFound = false;
         for(Book book : books){
-            if(book.BookId == Bookid){
-                book.title = newTitle;
+            if(book.getBookId() == Bookid){
+                book.setTitle(newTitle);
                 bookFound = true;
                 break;
             }
@@ -41,8 +53,8 @@ public class Library {
     void updateBookAuthor(int Bookid, String newAuthor){
         boolean bookFound = false;
         for(Book book : books){
-            if(book.BookId == Bookid){
-                book.author = newAuthor;
+            if(book.getBookId() == Bookid){
+                book.setAuthor(newAuthor);
                 bookFound = true;
                 break;
             }
@@ -57,7 +69,7 @@ public class Library {
             System.out.println("Displaying Registered Students: ");
             for(Student student : students){
                 System.out.println("*************************");
-                System.out.println("Name: "+student.name+"\nRoll No.: "+student.RollNo+"\nStudent Id: "+student.studentId);
+                System.out.println("Name: "+student.getName()+"\nRoll No.: "+student.getRollNo()+"\nStudent Id: "+student.getStudentId());
                 System.out.println("*************************");
             }
         }
@@ -68,9 +80,9 @@ public class Library {
         } else{
             System.out.println("Displaying Only Those Books which are Issued By Library.");
             for(Book book:books){
-                if(book.isIssued){
+                if(book.getIsIssued()){
                     System.out.println("***************************");
-                    System.out.println("Book Id: "+book.BookId+"\nBook Title: "+book.title+"\nBook Author: "+book.author);
+                    System.out.println("Book Id: "+book.getBookId()+"\nBook Title: "+book.getTitle()+"\nBook Author: "+book.getAuthor());
                     System.out.println("***************************");
                 }
             }
@@ -82,9 +94,9 @@ public class Library {
         } else{
             System.out.println("Displaying Only Those Books which are currently present in Library.");
             for(Book book:books){
-                if(!book.isIssued){
+                if(!book.getIsIssued()){
                     System.out.println("***************************");
-                    System.out.println("Book Id: "+book.BookId+"\nBook Title: "+book.title+"\nBook Author: "+book.author);
+                    System.out.println("Book Id: "+book.getBookId()+"\nBook Title: "+book.getTitle()+"\nBook Author: "+book.getAuthor());
                     System.out.println("***************************");
                 }
             }
@@ -95,7 +107,7 @@ public class Library {
             return false;
         } else{
             for(Book bookinLibrary : books){
-                if(bookinLibrary.BookId == book.BookId && bookinLibrary.title.equalsIgnoreCase(book.title) && bookinLibrary.author.equalsIgnoreCase(book.author)){
+                if(bookinLibrary.getBookId() == book.getBookId() && bookinLibrary.getTitle().equalsIgnoreCase(book.getTitle()) && bookinLibrary.getAuthor().equalsIgnoreCase(book.getAuthor())){
                     return true;
                 }
             }
@@ -107,7 +119,7 @@ public class Library {
             return false;
         } else{
             for(Book book : books){
-                if(book.BookId == id){
+                if(book.getBookId() == id){
                     return true;
                 }
             }
@@ -119,7 +131,7 @@ public class Library {
             return false;
         } else{
             for(Book book : books){
-                if(book.title.equalsIgnoreCase(title)){
+                if(book.getTitle().equalsIgnoreCase(title)){
                     return true;
                 }
             }
@@ -132,7 +144,7 @@ public class Library {
         } else{
             ArrayList<Book> mathcingBooks = new ArrayList<>();
             for(Book book: books){
-                if(book.author.equalsIgnoreCase(Author)){
+                if(book.getAuthor().equalsIgnoreCase(Author)){
                     mathcingBooks.addLast(book);
                 }
             }
@@ -144,17 +156,17 @@ public class Library {
     }
     void issueBook(Book book, Student student, Scanner sc){
         if(students.contains(student)){
-            if(student.issuedBook.size() < 3){
+            if(student.getIssuedBooks().size() < 3){
                 if(books.contains(book)){
-                    if(!book.isIssued){
+                    if(!book.getIsIssued()){
                         System.out.println("To Confirm the Process\nEnter Your Password");
                         String password = sc.nextLine();
                         if(password.equals(student.getPassword())){
-                            book.isIssued = true;
+                            book.setIsIssued(true);
                             book.setIssuedTo(student);
                             book.setIssueDate(LocalDate.now());
                             book.setDueDate(book.getIssueDate().plusDays(7));
-                            student.issuedBook.add(book);
+                            student.getIssuedBooks().add(book);
                             System.out.println("Book Issued Successfully!");
                             System.out.println("Book Issued on "+ book.getIssueDate());
                             System.out.println("Note: Kindly Return the Book within 7 days.\nOtherwise Fine will be Imposed Rs. 10 for each subsequent day delay.");
@@ -162,23 +174,23 @@ public class Library {
                             System.out.println("Wrong Password!");
                         }
                     } else{
-                        System.out.println(book.title+" is Already Issued to "+ book.getIssuedTo().name);
+                        System.out.println(book.getTitle()+" is Already Issued to "+ book.getIssuedTo().getName());
                     }
                 } else{
-                    System.out.println(book.title+" is Not present in Library.");
+                    System.out.println(book.getTitle()+" is Not present in Library.");
                 }
             } else{
-                System.out.println(student.name+" already have 3 Issued Books!");
+                System.out.println(student.getName()+" already have 3 Issued Books!");
             }
         } else{
-            System.out.println(student.name +" is Not Registered. So, Register First to take Book.");
+            System.out.println(student.getName() +" is Not Registered. So, Register First to take Book.");
         }
     }
     void returnBook(Student student, Book book, Scanner sc){
         if(students.contains(student)){
-            if(!student.issuedBook.isEmpty()){
+            if(!student.getIssuedBooks().isEmpty()){
                 if(books.contains(book)){
-                    if(book.isIssued){
+                    if(book.getIsIssued()){
                         System.out.println("To Confirm the Process\nEnter Your Password");
                         String password = sc.nextLine();
                         if(password.equals(student.getPassword())){
@@ -190,33 +202,33 @@ public class Library {
                                 System.out.println("You have to pay Rs."+fine+" as Fine.");
                                 int proceedToPayment = Main.readInt(sc, "Enter 1 for Payment: ");
                                 if(proceedToPayment == 1){
-                                    book.isIssued = false;
+                                    book.setIsIssued(false);
                                     book.setIssuedTo(null);
-                                    student.issuedBook.remove(book);
+                                    student.getIssuedBooks().remove(book);
                                     System.out.println("Book Returned Successfully!");
                                 } else{
                                     System.out.println("Book is not returned.\nPay Fine to return book.");
                                 }
                             } else{
-                                book.isIssued = false;
+                                book.setIsIssued(false);
                                 book.setIssuedTo(null);
-                                student.issuedBook.remove(book);
+                                student.getIssuedBooks().remove(book);
                                 System.out.println("Book Returned Successfully!");
                             }
                         } else{
                             System.out.println("Wrong Password!");
                         }
                     } else{
-                        System.out.println(book.title+" is not Issued to anyone.");
+                        System.out.println(book.getTitle()+" is not Issued to anyone.");
                     }
                 } else{
-                    System.out.println(book.title+" is Not Present in Library. Please Add if You want.");
+                    System.out.println(book.getTitle()+" is Not Present in Library. Please Add if You want.");
                 }
             } else{
-                System.out.println(student.name+" has no Issued Book!");
+                System.out.println(student.getName()+" has no Issued Book!");
             }
         } else{
-            System.out.println(student.name +" is Not Registered. So, Register First to return Book.");
+            System.out.println(student.getName() +" is Not Registered. So, Register First to return Book.");
         }
     }
 }

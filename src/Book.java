@@ -1,10 +1,10 @@
 import java.time.LocalDate;
 
 public class Book {
-    int BookId;
-    String title;
-    String author;
-    boolean isIssued;
+    private int BookId;
+    private String title;
+    private String author;
+    private boolean isIssued;
     private Student issuedTo;
     private LocalDate issueDate;
     private LocalDate dueDate;
@@ -15,6 +15,30 @@ public class Book {
         this.isIssued  = false;
         issuedTo =null;
         issueDate = dueDate =null;
+    }
+    void setBookId(int bookId){
+        BookId = bookId;
+    }
+    int getBookId(){
+        return BookId;
+    }
+    void setTitle(String Title){
+        this.title = Title;
+    }
+    String getTitle(){
+        return title;
+    }
+    void setAuthor(String author){
+        this.author = author;
+    }
+    String getAuthor(){
+        return author;
+    }
+    void setIsIssued(boolean isIssued){
+        this.isIssued = isIssued;
+    }
+    boolean getIsIssued(){
+        return isIssued;
     }
     void setIssueDate(LocalDate localdate){
         issueDate = localdate;

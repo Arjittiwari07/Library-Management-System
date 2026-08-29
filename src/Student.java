@@ -1,18 +1,18 @@
 import java.util.ArrayList;
 
 public class Student {
-    int studentId;
-    String name;
+    private int studentId;
+    private String name;
     private String Institution;
-    int RollNo;
+    private int RollNo;
     private String password;
-    ArrayList<Book> issuedBook;
+    private ArrayList<Book> issuedBooks;
     Student(int studentId, String name){
         this.name = name;
         this.studentId = studentId;
         this.Institution = null;
         this.RollNo = 0;
-        this.issuedBook = new ArrayList<>();
+        this.issuedBooks = new ArrayList<>();
         this.password = null;
     }
     Student(int studentId, String name, int RollNo, String Institution){
@@ -20,7 +20,26 @@ public class Student {
         this.name = name;
         this.Institution = Institution;
         this.RollNo = RollNo;
-        issuedBook = null;
+        this.issuedBooks = new ArrayList<>();
+        this.password = null;
+    }
+    void setStudentId(int StudentId){
+        this.studentId = StudentId;
+    }
+    int getStudentId(){
+        return studentId;
+    }
+    void setName(String name){
+        this.name = name;
+    }
+    String getName(){
+        return name;
+    }
+    void setRollNo(int RollNo){
+        this.RollNo = RollNo;
+    }
+    int getRollNo(){
+        return RollNo;
     }
     void setInstitution(String Institution){
         this.Institution = Institution;
@@ -33,6 +52,9 @@ public class Student {
     }
     String getPassword(){
         return password;
+    }
+    ArrayList<Book> getIssuedBooks(){
+        return issuedBooks;
     }
     @Override
     public boolean equals(Object obj){
