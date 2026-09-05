@@ -1,33 +1,24 @@
 import java.util.Scanner;
-import java.util.ArrayList;
+import java.io.IOException;
 
 public class Main{
     static Book takeInputBook(Scanner sc, Library library){
-        System.out.println("Please Enter Books Details!");
         int bookId = readInt(sc, "Enter Book Id: ");
-        System.out.print("Enter Book Title: ");
-        String bookTitle = sc.nextLine();
-        System.out.print("Enter Book Author: ");
-        String bookAuthor = sc.nextLine();
-        Book newBook = new Book(bookId, bookTitle, bookAuthor);
         for(Book book : library.getBooks()){
-            if(book.equals(newBook)){
-                newBook = book;
+            if(bookId == book.getBookId()){
+                return book;
             }
         }
-        return newBook;
+        return null;
     }
     static Student takeInputStudent(Scanner sc, Library library){
-        System.out.print("Enter Student Name: ");
-        String StudentName = sc.nextLine();
         int StudentId = readInt(sc, "Enter Student Id (Given by Library): ");
-        Student NewStudent = new Student(StudentId,StudentName);
         for(Student student : library.getStudents()){
-            if(student.equals(NewStudent)){
-                NewStudent = student;
+            if(StudentId == student.getStudentId()){
+                return student;
             }
         }
-        return NewStudent;
+        return null;
     }
     static int readInt(Scanner sc, String msg){
         while (true) {
@@ -41,7 +32,7 @@ public class Main{
             sc.nextLine();
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         int choices;    // to continue loops
         Scanner sc = new Scanner(System.in);
         Library library = new Library();
@@ -78,7 +69,7 @@ public class Main{
                                 System.out.println("Wrong Value Entered!");
                                 break;
                         }
-                        displaychoices = readInt(sc, "Want to Contiue, Type 1: ");
+                        displaychoices = readInt(sc, "Want to Continue displaying Books, Type 1: ");
                     } while(displaychoices == 1);
                     break;
                 case 3:
@@ -96,10 +87,13 @@ public class Main{
                                 System.out.print("Enter Book Author: ");
                                 String bookAuthorSearch = sc.nextLine();
                                 Book newBookSearch = new Book(bookIdSearch, bookTitleSearch, bookAuthorSearch);
-                                if(library.searchBookByFullDetail(newBookSearch)){
-                                    System.out.println("Book is Present in Library!");
-                                } else{
+                                if(library.searchBookByFullDetail(newBookSearch)==null){
                                     System.out.println("No Such Book Found!");
+                                } else{
+                                    Book book = library.searchBookByFullDetail(newBookSearch);
+                                    System.out.println("****************************");
+                                    System.out.println("1. Book Id: "+book.getBookId()+"\n2. Book Title: "+book.getTitle()+"\n3. Book Author: "+book.getAuthor());
+                                    System.out.println("****************************");
                                 }
                                 break;
                             case 2:
@@ -108,8 +102,7 @@ public class Main{
                                 if(library.searchBookByAuthor(AuthorForSearch)==null){
                                     System.out.println("No Such Book Found!");
                                 } else{
-                                    ArrayList<Book> current = library.searchBookByAuthor(AuthorForSearch);
-                                    for(Book book: current){
+                                    for(Book book: library.searchBookByAuthor(AuthorForSearch)){
                                         System.out.println("****************************");
                                         System.out.println("1. Book Id: "+book.getBookId()+"\n2. Book Title: "+book.getTitle()+"\n3. Book Author: "+book.getAuthor());
                                         System.out.println("****************************");
@@ -118,26 +111,32 @@ public class Main{
                                 break;
                             case 3:
                                 int id = readInt(sc,"Enter Book Id: ");
-                                if(library.searchBookById(id)){
-                                    System.out.println("Book is present in Library!");
-                                } else{
+                                if(library.searchBookById(id) == null){
                                     System.out.println("No Such Book Found!");
+                                } else{
+                                    Book book = library.searchBookById(id);
+                                    System.out.println("****************************");
+                                    System.out.println("1. Book Id: "+book.getBookId()+"\n2. Book Title: "+book.getTitle()+"\n3. Book Author: "+book.getAuthor());
+                                    System.out.println("****************************");
                                 }
                                 break;
                             case 4:
                                 System.out.print("Enter Book Title: ");
                                 String bookTitlesearch = sc.nextLine();
-                                if(library.searchBookByTitle(bookTitlesearch)){
-                                    System.out.println("Book is present in Library!");
-                                } else{
+                                if(library.searchBookByTitle(bookTitlesearch) == null){
                                     System.out.println("No Such Book Found!");
+                                } else{
+                                    Book book = library.searchBookByTitle(bookTitlesearch);
+                                    System.out.println("****************************");
+                                    System.out.println("1. Book Id: "+book.getBookId()+"\n2. Book Title: "+book.getTitle()+"\n3. Book Author: "+book.getAuthor());
+                                    System.out.println("****************************");
                                 }
                                 break;
                             default:
                                 System.out.println("Wrong Value Entered!");
                                 break;
                         }
-                        SearchChoices = readInt(sc, "Want to Continue, Press 1: ");
+                        SearchChoices = readInt(sc, "Want to Continue Searching, Press 1: ");
                     }while(SearchChoices == 1);
                     break;
                 case 4:
@@ -208,7 +207,7 @@ public class Main{
                                 System.out.println("Wrong Value Entered!");
                                 break;
                         }
-                        updatechoices = readInt(sc, "Want to Continue, Press 1: ");
+                        updatechoices = readInt(sc, "Want to Continue editing Title or Author of Book, Press 1: ");
                     } while(updatechoices == 1);
 
                     break;
@@ -216,8 +215,9 @@ public class Main{
                     System.out.println("Not A Valid Number!");
                     break;
             }
-            choices = readInt(sc, "Want to Continue, Press 1: ");
+            choices = readInt(sc, "Want to Continue Main Menu, Press 1: ");
         }while(choices == 1);
+        library.CleanUpAction();
         sc.close();
     }
 }

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Student {
+public class Student implements Serializable {
     private int studentId;
     private String name;
     private String Institution;
@@ -22,6 +23,14 @@ public class Student {
         this.RollNo = RollNo;
         this.issuedBooks = new ArrayList<>();
         this.password = null;
+    }
+    Student(int studentId, String name, int RollNo, String Institution, ArrayList<Book> list, String password){
+        this.studentId = studentId;
+        this.name = name;
+        this.Institution = Institution;
+        this.RollNo = RollNo;
+        this.issuedBooks = list;
+        this.password = password;
     }
     void setStudentId(int StudentId){
         this.studentId = StudentId;
@@ -63,9 +72,13 @@ public class Student {
         if(!(obj instanceof Student))
             return false;
         Student s = (Student) obj;
-        if(this.studentId == s.studentId && this.name.equalsIgnoreCase(s.name) && this.RollNo == s.RollNo){
+        if(this.studentId == s.studentId){
             return true;
         }
         return false;
+    }
+    @Override
+    public String toString(){
+        return name+"-"+Institution;
     }
 }

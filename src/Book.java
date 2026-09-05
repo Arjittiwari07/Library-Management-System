@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Book {
+public class Book implements Serializable{
     private int BookId;
     private String title;
     private String author;
@@ -15,6 +16,15 @@ public class Book {
         this.isIssued  = false;
         issuedTo =null;
         issueDate = dueDate =null;
+    }
+    Book(int BookId, String title, String author, boolean isIssued, Student issuedTo, LocalDate issueDate, LocalDate dueDate){
+        this.BookId = BookId;
+        this.title = title;
+        this.author = author;
+        this.isIssued = isIssued;
+        this.issuedTo = issuedTo;
+        this.issueDate = issueDate;
+        this.dueDate = dueDate;
     }
     void setBookId(int bookId){
         BookId = bookId;
@@ -65,9 +75,13 @@ public class Book {
         if(!(obj instanceof Book))
             return false;
         Book book =(Book) obj;
-        if(this.BookId == book.BookId && this.title.equalsIgnoreCase(book.title) && this.author.equalsIgnoreCase(book.author)){
+        if(this.BookId == book.BookId || this.title.equalsIgnoreCase(book.title)){
             return true;
         }
         return false;
+    }
+    @Override
+    public String toString(){
+        return title+"-"+author;
     }
 }
