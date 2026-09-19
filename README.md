@@ -1,247 +1,98 @@
-📚 Library Management System
+📚 Library Management System (Version 2 – JDBC + MySQL)
 
-A console-based Library Management System built using Java. This project is designed to manage basic library operations such as adding books, viewing books, issuing books, and returning books.
+A professional Library Management System built using Core Java, JDBC, and MySQL, following a layered architecture with DAO classes, custom exceptions, input validation, and transaction management.
 
-The current version focuses on strengthening my understanding of Java, Object-Oriented Programming (OOP), encapsulation, classes, objects, and collections.
+This is Version 2 of the project. It upgrades the original file-handling version to a database-driven application using JDBC and MySQL.
 
-I am continuously improving this project and plan to add file handling, persistent data storage, fine calculation, transaction history, and other features in future versions.
+🚀 Project Overview
 
----
+The application allows administrators and students to manage library operations through a console-based interface. All data is stored in a MySQL database using JDBC.
 
-🚀 Current Features
+✨ Features
 
-The current version of the project includes:
+Admin
 
-- 📖 Add books to the library
-- 📚 Display available books
-- 🔍 Search for books
-- 👤 Manage library members
-- 📕 Issue books to members
-- 🔄 Return issued books
-- 🗑️ Remove books
-- 📋 Menu-driven console interface
-- 🔒 Encapsulation using "private" variables and appropriate methods
-- 📦 Use of Java Collections for managing data
+- Secure admin registration and login.
+- Add, update, delete, and search books.
+- View all books and student records.
+- Manage book inventory.
 
----
+Student
 
-🛠️ Technologies Used
+- Student registration and login.
+- Search books by title, author, category, or publisher.
+- Issue and return books.
+- Maximum 3 books can be issued at a time.
+- View issued books and transaction history.
 
-- Java
-- Object-Oriented Programming (OOP)
-- Java Collections Framework
-- ArrayList
+Library Rules
+
+- Automatic due date generation.
+- Fine calculation for late returns using "LocalDate".
+- Book availability updated automatically.
+- Input validation for username, password, phone number, semester, and course.
+
+🛠️ Tech Stack
+
+- Java 17+
+- JDBC
+- MySQL 8
 - VS Code
-
----
-
-🧠 Java Concepts Used
-
-This project has helped me practice several important Java concepts:
-
-Encapsulation
-
-Class variables have been kept private and accessed through methods where required.
-
-class Book {
-    private String title;
-    private int bookId;
-    private boolean available;
-
-    // Methods to access and modify data
-}
-
-This helps protect the internal state of objects and follows good OOP practices.
-
-Classes and Objects
-
-The system is divided into different classes to represent real-world entities such as:
-
-- Books
-- Members
-- Library
-- Transactions
-
-Collections
-
-"ArrayList" is used to store and manage multiple objects dynamically.
-
-Methods and Constructors
-
-Methods are used to perform library operations, while constructors are used to initialize objects.
-
----
+- MySQL Connector/J
 
 📂 Project Structure
 
-LibraryManagementSystem/
-│
-├── Main.java
-├── Book.java
-├── Member.java
-├── Library.java
-├── IssueRecord.java
-│
-└── README.md
+- "app" – Main application.
+- "model" – Book, Student, Admin, Transaction classes.
+- "dao" – Database access layer.
+- "service" – Library business logic.
+- "util" – Database connection and utility methods.
+- "exception" – Custom exception classes.
 
-«The exact files/classes may change as the project continues to evolve.»
+🗄️ Database
 
----
+Database: "librarydb"
 
-▶️ How to Run
+Main tables:
 
-1. Clone the repository
+- "books"
+- "students"
+- "admins"
+- "transactions"
 
-git clone <your-repository-link>
+⚙️ Key Concepts Used
 
-2. Open the project
+- Object-Oriented Programming (OOP)
+- Encapsulation and Abstraction
+- DAO Design Pattern
+- JDBC ("Connection", "PreparedStatement", "ResultSet")
+- MySQL CRUD Operations
+- Custom Exceptions
+- Input Validation
+- Date & Time API ("LocalDate")
 
-Open the project in VS Code or any Java-compatible IDE.
+📈 Future Versions
 
-3. Compile
+Version 3
 
-javac Main.java
+- Password hashing ("java.security" / BCrypt)
+- JUnit 5 testing
+- Improved validation and security
 
-4. Run
+Final Version
 
-java Main
-
----
-
-📋 Example Menu
-
-====== Library Management System ======
-
-1. Add Book
-2. View Books
-3. Search Book
-4. Add Member
-5. Issue Book
-6. Return Book
-7. Remove Book
-8. Exit
-
-Enter your choice:
-
----
-
-🔮 Future Improvements
-
-This project is still under development. I am planning to improve it by adding the following features:
-
-💾 File Handling
-
-Currently, the data is handled during program execution. I plan to implement Java File Handling so that:
-
-- Books can be saved permanently.
-- Member information can be stored.
-- Data can be loaded when the application starts.
-- Changes are not lost when the program is closed.
-
-🆔 Unique IDs
-
-Add automatic generation and validation of:
-
-- Book IDs
-- Member IDs
-
-This will help prevent duplicate records.
-
-📅 Issue and Return Dates
-
-Store:
-
-- Issue date
-- Expected return date
-- Actual return date
-
-💰 Fine Calculation
-
-Implement automatic fine calculation when a book is returned after the due date.
-
-📝 Transaction History
-
-Maintain a record of:
-
-- Book issued
-- Member who borrowed it
-- Issue date
-- Return date
-- Fine, if applicable
-
-🔐 Admin/User System
-
-Introduce different access levels such as:
-
-- Admin – Add/remove books and manage members
-- User – Search, issue and return books
-
-🔎 Improved Search
-
-Add more advanced searching and filtering by:
-
-- Book title
-- Author
-- Book ID
-- Availability
-
-🛡️ Input Validation
-
-Improve the system by handling:
-
-- Invalid user input
-- Duplicate IDs
-- Invalid menu choices
-- Attempt to issue an unavailable book
-- Attempt to return a book that wasn't issued
-
----
-
-📈 Project Development
-
-This project is being developed step by step as I learn more about Java.
-
-Current Stage
-
-Java OOP + Collections + Basic Library Operations
-
-Next Stage
-
-File Handling + Persistent Data Storage
-
-Planned Later
-
-Validation + Transactions + Fine Calculation + Authentication + Improved Search
-
----
-
-🎯 Learning Goals
-
-Through this project, I am working on improving my understanding of:
-
-- Java programming
-- Object-Oriented Programming
-- Encapsulation
-- Classes and objects
-- Java Collections Framework
-- File Handling
-- Data persistence
-- Exception handling
-- Software design and organization
-
-The goal is to gradually turn this console-based application into a more complete and practical Library Management System.
-
----
+- Spring Boot
+- Spring Security authentication
+- REST APIs
+- Hibernate / JPA
+- Swagger API documentation
 
 👨‍💻 Author
 
 Arjit Tiwari
 
-B.Tech Information Technology
-Delhi University – Cluster Innovation Centre
-
-Currently learning Java, Data Structures & Algorithms, and Backend Development.
+B.Tech Information Technology, Cluster Innovation Centre, University of Delhi.
 
 ---
 
-⭐ This project is actively being improved as I learn new Java concepts.
+⭐ This project demonstrates Java OOP, JDBC, MySQL database connectivity, and industry-style layered architecture for a real-world library management system.
