@@ -1,3 +1,0 @@
-1|Arjit Tiwari|162507|Cluster Innovation Centre|[]|Arjit@123
-2|Kashish|162525|Cluster Innovation Centre|[]|Kashish@123
-3|Shanu Kumar|162551|Cluster Innovation Centre|[]|Shanu@123
